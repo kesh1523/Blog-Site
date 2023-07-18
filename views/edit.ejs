@@ -1,0 +1,31 @@
+<%- include("partials/header") -%>
+
+<h1 style="color: #5c7580;">Edit</h1>
+<form method="POST" action="/edit/<%= blogs._id %>">
+
+  <div class="form-group">
+    <label>Blog id</label>
+    <input type="text"  name="ID" class="form-control" value="<%= blogs._id %>" readonly>
+  </div>
+
+  <div class="form-group">
+    <label>Author</label>
+    <input type="text"  name="Author" class="form-control" placeholder="Author Name" required autocomplete="off" spellcheck="false" value="<%= blogs.author %>" readonly >
+  </div>
+
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text"  name="title" class="form-control" placeholder="Blog Title" required autocomplete="off" spellcheck="false" value="<%= blogs.title %>">
+  </div>
+
+  <div class="form-group">
+    <label>Blog</label>
+    <textarea name="blog" class="form-control" placeholder="Type Blog Post..." required autocomplete="off" spellcheck="false"><%= blogs.content %></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Update</button>
+    
+</form>
+
+<%- include("partials/footer") -%>
+

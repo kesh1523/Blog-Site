@@ -1,0 +1,80 @@
+<html lang="en">
+  <head>
+    <style>
+      .readmorebtn {
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .readmorebtn:hover {
+        background-color: #403a80;
+      }
+
+      .hidden-content {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <%- include('partials/header') -%>
+
+    <div class="blogheader">
+        <h1 style="color: #5750b7;">Blogs</h1>
+        <button class="homeheaderr"><a href="/compose" class="composebtnn">Compose</a></button>
+    </div>
+    
+    <div class="blogs">
+        <% blogs.forEach(function(blog) { %>
+ 
+      <div class="blogcontent">
+        <div class="homebtnn"> 
+          <form action="/home/<%= blog._id %>?_method=DELETE" method="GET" class="d-inline one">
+            <button type="submit" class="btn btn delete">Delete</button>
+          </form>
+
+          <form action="/edit/<%= blog._id %>" method="GET" class="d-inline two">
+            <a href="/edit"> <button type="submit" class="btn btn edit">Edit</button></a> 
+          </form>
+        </div>
+         
+            <h1 class="title"><%= blog.title %></h1>
+            <% if (blog.content.length > 370) { %>
+              <p class="content"><%= blog.content.substring(0, 370) %>...</p>
+              <button class="readmorebtn btn btn-primary">Read More</button>
+              <div class="hidden-content" style="display: none;">
+                <p class="content"><%= blog.content %></p>
+              </div>
+            <% } else { %>
+              <p class="content"><%= blog.content %></p>
+            <% } %>
+
+        <div class="author">
+            <p>~ <%= blog.author %></p>
+        </div>
+      </div>
+         
+        <% }); %>
+    </div>
+     
+    <%- include('partials/footer') -%>  
+
+    <script>
+      const readMoreButtons = document.querySelectorAll(".readmorebtn");
+      const shortContent=document.querySelector(".content");
+      readMoreButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const hiddenContent = this.nextElementSibling;
+          const shortContent = this.previousElementSibling;
+          hiddenContent.style.display = "block";
+          shortContent.style.display="none";
+          this.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>
